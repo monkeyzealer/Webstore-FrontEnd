@@ -9,24 +9,15 @@ const loadModule = (comMod) => (componentModule) => {
 export default function createRoutes() {
 
   return [
-    /*{
-       path: '/',
-       name: 'home',
-       getComponent(nextState, comMod) {
-         import('containers/Home')
-           .then(loadModule(comMod))
-           .catch(errorLoading);
-       },
-     },*/
-     {
-      path: '*',
-      name: 'notfound',
-      getComponent(nextState, comMod) {
-        import('containers/NotFoundPage')
-          .then(loadModule(comMod))
-          .catch(errorLoading);
-      },
+    {
+     path: '/',
+     name: 'Home',
+     getComponent(nextState, cb) {
+       import('containers/Home')
+         .then(loadModule(cb))
+         .catch(errorLoading);
     },
+  },
     {
      path: '/signin',
      name: 'SignIn',
@@ -35,6 +26,15 @@ export default function createRoutes() {
          .then(loadModule(cb))
          .catch(errorLoading);
     },
-    },
+  },
+    {
+     path: '*',
+     name: 'notfound',
+     getComponent(nextState, comMod) {
+       import('containers/NotFoundPage')
+         .then(loadModule(comMod))
+         .catch(errorLoading);
+     },
+   },
   ];
 }

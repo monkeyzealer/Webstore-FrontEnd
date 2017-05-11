@@ -23,7 +23,15 @@ injectGlobal`
     min-height: 100%;
     min-width: 100%;
   }
-
+  nav a {
+    color: white;
+  }
+  nav a:hover {
+    color: red;
+  }
+  button {
+    background: #2C3539 !important;
+  }
   p,
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;

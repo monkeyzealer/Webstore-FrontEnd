@@ -15,6 +15,9 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import RaisedButton from 'material-ui/RaisedButton';
+import NavBar from 'components/NavBar';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 
 export default class SignIn extends React.PureComponent {
@@ -41,7 +44,7 @@ export default class SignIn extends React.PureComponent {
       data.append("email", this.state.email);
       data.append("password", this.state.password);
 
-      fetch("http://localhost:3000/api/SignIn", {
+      fetch("http://127.0.0.1:8000/api/signIn", {
         method:"post",
         body: data
       })
@@ -54,7 +57,7 @@ export default class SignIn extends React.PureComponent {
         }
         else if (json.token) {
           sessionStorage.setItem("token", json.token);
-          fetch("http://localhost:3000/api/getUser?token="+json.token, {
+          fetch("http://127.0.0.1:8000/api/getUser?token="+json.token, {
             headers:{"Authorization":"Bearer "+json.token}
           })
           .then(function(res){
@@ -83,8 +86,7 @@ export default class SignIn extends React.PureComponent {
     };
     const main={
       width: "100%",
-      background: "url(http://i1065.photobucket.com/albums/u395/monkeyzealer/wood_background_zps0b8n5qop.gif)",
-      backgroundSize: "100% 100%",
+      background: "white",
       display: "flex",
       flexWrap: "wrap",
       flexDirection: "column",
@@ -155,8 +157,8 @@ export default class SignIn extends React.PureComponent {
   };
   return (
       <div style={Container}>
-        <Helmet title="Auth" meta={[ { name: 'description', content: 'Description of Auth' }]}/>
-
+        <Helmet title="Sign In" meta={[ { name: 'description', content: 'Description of Sign In' }]}/>
+        <Header />
         <main style={mainContainer}>
           <div style={main}>
             <div style={formContainer}>
@@ -189,10 +191,11 @@ export default class SignIn extends React.PureComponent {
             </div>
           </div>
         </main>
+        <Footer style={footerStyle} />
       </div>
     );
   }
 }
-Auth.contextTypes = {
+SignIn.contextTypes = {
   router: React.PropTypes.object
 };

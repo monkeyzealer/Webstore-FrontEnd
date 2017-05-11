@@ -18,26 +18,35 @@ class Header extends React.PureComponent {
     fontSize: "20px",
     color: "snow",
     borderBottom: "2px solid black",
-  }
-  const  headerbar={
+  };
+  const headerbar={
     display: "flex",
     alignItems: "center",
-    paddingTop: "5px";
+    paddingTop: "5px",
     paddingBottom: "5px",
     margin: "auto",
     width: "75%",
-    height: "auto",
+    height: "60px",
+    paddingTop: "100px"
   };
+  const headerbox={
+    margin: "0 auto",
   }
+  const header={
+    width: "100%",
+    background: "url(https://superdevresources.com/wp-content/uploads/2014/11/black-metal-grill-texture-vector.jpg)",
+  };
+
   return (
-      <div>
-      <div style={headerbar}>
-      <img src="http://i1065.photobucket.com/albums/u395/monkeyzealer/Hyperforce_Insignia2_zpscu0i814l.png" />
-        <div style="links">
-          Home   About   Register   Sign In
-        </div>
+    <header>
+      <div style={header}>
+          <div style={headerbar}>
+            <div style={headerbox}>
+            <NavBar />
+            </div>
+          </div>
       </div>
-      </div>
+    </header>
     );
   }
 }
