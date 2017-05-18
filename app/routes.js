@@ -18,6 +18,24 @@ export default function createRoutes() {
          .catch(errorLoading);
     },
   },
+  {
+   path: '/about',
+   name: 'About',
+   getComponent(nextState, cb) {
+     import('containers/About')
+       .then(loadModule(cb))
+       .catch(errorLoading);
+  },
+},
+{
+path: '/store',
+name: 'Store',
+getComponent(nextState, cb) {
+  import('containers/Store')
+    .then(loadModule(cb))
+    .catch(errorLoading);
+},
+},
     {
      path: '/signin',
      name: 'SignIn',
@@ -27,6 +45,33 @@ export default function createRoutes() {
          .catch(errorLoading);
     },
   },
+  {
+   path: '/signup',
+   name: 'SignUp',
+   getComponent(nextState, cb) {
+     import('containers/SignUp')
+       .then(loadModule(cb))
+       .catch(errorLoading);
+  },
+},
+{
+path: '/create-product',
+name: 'Create Product',
+getComponent(nextState, cb) {
+  import('containers/CreateProduct')
+    .then(loadModule(cb))
+    .catch(errorLoading);
+},
+},
+{
+path: '/create-category',
+name: 'Create Category',
+getComponent(nextState, cb) {
+  import('containers/CreateCategory')
+    .then(loadModule(cb))
+    .catch(errorLoading);
+},
+},
     {
      path: '*',
      name: 'notfound',

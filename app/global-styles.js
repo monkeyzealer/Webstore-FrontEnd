@@ -26,12 +26,27 @@ injectGlobal`
   nav a {
     color: white;
   }
+  hr {
+    height: 0;
+    overflow: visible;
+    width: 55%;
+}
   nav a:hover {
     color: red;
   }
-  button {
+
+  .Categories button {
     background: #2C3539 !important;
+    margin: 0 !important;
+    background: white !important;
   }
+  .button-submit span {
+    color: red !important;
+  }
+  .button-submit button {
+    background: black !important;
+  }
+}
   p,
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;

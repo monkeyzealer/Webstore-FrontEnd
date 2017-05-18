@@ -46,6 +46,8 @@ class NavBar extends React.PureComponent {
         padding:"5px",
       }
 
+      var storeLink = <Link activeStyle={{color:'red'}} to="/store" style={navLink}>Store</Link>;
+
       var signOutLink = <Link activeStyle={{color:'red'}} onTouchTap={() => this.signOut()} style={navLink}>Sign Out</Link>;
 
       var registerLink = "";
@@ -56,6 +58,7 @@ class NavBar extends React.PureComponent {
 
       if(this.state.user === null)
       {
+        storeLink = "";
         signOutLink = "";
         signInLink = <Link activeStyle={{color:'red'}} to="/SignIn" style={navLink}>Sign In</Link>;
         registerLink = <Link activeStyle={{color:'red'}} to="/signup" style={navLink}>Register</Link>;
@@ -63,6 +66,9 @@ class NavBar extends React.PureComponent {
       else {
         signInLink = "";
         registerLink = "";
+        if(this.state.user.roleID >= 1) {
+          storeLink = "";
+        }
       }
 
     if(this.state.menuOpen == true)
@@ -71,6 +77,7 @@ class NavBar extends React.PureComponent {
         <nav>
         <Link activeStyle={{color:'red'}} to="/" style={navLink}>Home</Link>
         <Link activeStyle={{color:'red'}} to="/about" style={navLink}>About</Link>
+        {storeLink}
         {signOutLink}
         {registerLink}
         {signInLink}
@@ -82,7 +89,7 @@ class NavBar extends React.PureComponent {
   sessionStorage.removeItem("user");
   sessionStorage.removeItem("token");
   alert("Good bye and Come Again");
-  this.contect.router.push("/");
+  this.context.router.push("/");
   }
   render() {
     const navBar = {
@@ -131,6 +138,8 @@ class NavBar extends React.PureComponent {
       },
     };
 
+    var storeLink = <Link activeStyle={{color:'red'}} to="/store" style={navLink}>Store</Link>;
+
     var signOutLink = <Link activeStyle={{color:'red'}} onTouchTap={() => this.signOut()} style={navLink}>Sign Out</Link>;
 
     var signInLink = "";
@@ -140,6 +149,7 @@ class NavBar extends React.PureComponent {
     //if user isnt logged in it will show the sign in link
     if(this.state.user === null)
     {
+      storeLink = "";
       signOutLink = "";
       signInLink = <Link activeStyle={{color:'red'}} to="/SignIn" style={navLink}>Sign In</Link>;
       registerLink = <Link activeStyle={{color:'red'}} to="/signup" style={navLink}>Register</Link>;
@@ -156,10 +166,11 @@ class NavBar extends React.PureComponent {
         <Responsive minDeviceWidth={1024}>
           <nav style={navBar}>
             <nav style={nav}>
-              <ul style={navUl}>
+              <ul style={navUl} className="NavBar">
                 <li style={navLI}><Link activeStyle={{color:'red'}} to="/" style={navLink}>Home</Link></li>
                 <li style={navLI}><Link activeStyle={{color:'red'}} to="/about" style={navLink}>About</Link></li>
                 <li style={navLI}><span style={logo}></span></li>
+                <li style={navLI}>{storeLink}</li>
                 <li style={navLI}>{signOutLink}</li>
                 <li style={navLI}>{registerLink}</li>
                 <li style={navLI}>{signInLink}</li>
