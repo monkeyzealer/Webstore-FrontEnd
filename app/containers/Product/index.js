@@ -127,7 +127,7 @@ deleteComment = () =>{
 }
 destroyProduct = () =>{
   var _this = this;
-  fetch("http://127.0.0.1:8000/api/destroyProduct/" + this.params.id + "?token" + this.state.token, {
+  fetch("http://127.0.0.1:8000/api/destroyProduct/" + this.params.id + "?token=" + this.state.token, {
     method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
@@ -329,7 +329,7 @@ destroyProduct = () =>{
             <p style={postContent}>{this.state.product.price}</p>
             <p style={postContent}>{this.state.product.description}</p>
             <p style={editLink}><Link to={`/update/${this.props.params.id}`}>Edit</Link></p>
-            <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyproduct}>Delete Post</button></p>
+            <p style={deleteLink}><button onTouchTap={this.destroyproduct}>Delete Post</button></p>
           </div>
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
