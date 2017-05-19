@@ -72,6 +72,15 @@ getComponent(nextState, cb) {
     .catch(errorLoading);
 },
 },
+{
+ path: '/product/:id',
+ name: 'Product',
+ getComponent(nextState, cb) {
+   import('containers/Product')
+     .then(loadModule(cb))
+     .catch(errorLoading);
+},
+},
     {
      path: '*',
      name: 'notfound',

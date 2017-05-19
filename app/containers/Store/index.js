@@ -50,24 +50,30 @@ export default class Store extends React.PureComponent {
     }.bind(this))
   }
   showMenu = () => {
-   var createProductLink = <Link to="/create-product" >Create Product</Link>;
+   var createProductLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/create-product">Create Product</Link>;
 
-   var createCategoryLink = <Link to="/create-category" >Create Category</Link>;
+   var createCategoryLink = <Link to="/create-category" style={{color:'red', textDecoration:'none', fontSize:'18px', border:'1px solid gray', padding:'10px', background:'black'}}>Create Category</Link>;
 
    var _this = this
 
    if(this.state.user === null)
    {
     createProductLink = "";
-    createProductLink = "";
+    createCategoryLink = "";
    }
    else {
      if(this.state.user.roleID !== 1) {
        createProductLink = "";
-       createProductLink = "";
+       createCategoryLink = "";
 
      }
    }
+return(
+  <div>
+    {createProductLink} {createCategoryLink}
+  </div>
+)
+
 }
 
  handleChange = (event, index, value) => this.setState({value});
@@ -145,7 +151,7 @@ export default class Store extends React.PureComponent {
       maxWidth: "100%",
     };
     const Productbox={
-        backgroundColor: "rgba(0, 0, 0, 0.3)",
+        backgroundColor: "#BdBEC0",
         width: "100%",
         margin: "0.5em",
         textDecoration: "none",
@@ -177,12 +183,12 @@ export default class Store extends React.PureComponent {
         <main style={mainContainer}>
         <div style={main}>
         <div style={AdminBar}>
-        <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/create-product">Create Product</Link> <Link to="/create-category" style={{color:'red', textDecoration:'none', fontSize:'18px', border:'1px solid gray', padding:'10px', background:'black'}}>Create Category</Link>
+        {this.showMenu()}
         </div>
         <ui style={flexGrid}>
           <li style={flexGridLi}>
         {this.state.products.map((product,i) => (
-          <div style={Productbox}>
+          <Link to={`/product/${product.id}`} style={Productbox}>
             <div style={Product}>
               <img
                   src={product.image}
@@ -194,7 +200,7 @@ export default class Store extends React.PureComponent {
               <h3 style={productTitle}> {product.product} </h3>
               <div style={price}>Price: ${product.price}</div>
             </div>
-          </div>
+          </Link>
         ))}
         </li>
       </ui>
