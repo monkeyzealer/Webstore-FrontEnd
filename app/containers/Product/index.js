@@ -4,8 +4,24 @@ product/*
  *
  */
 
-import React from 'react';
-import Helmet from 'react-helmet';
+ import React from 'react';
+ import Helmet from 'react-helmet';
+ import {Link} from 'react-router';
+ import Avatar from 'material-ui/Avatar';
+ import TextField from 'material-ui/TextField';
+ import {orange500, blue500, brown500, brown900, brown700,} from 'material-ui/styles/colors';
+ import AppBar from 'material-ui/AppBar';
+ import FlatButton from 'material-ui/FlatButton';
+ import FontIcon from 'material-ui/FontIcon';
+ import ActionAndroid from 'material-ui/svg-icons/action/android';
+ import RaisedButton from 'material-ui/RaisedButton';
+ import FileFolder from 'material-ui/svg-icons/file/folder';
+ import List from 'material-ui/List/List';
+ import ListItem from 'material-ui/List/ListItem';
+ import Footer from 'components/Footer';
+ import NavBar from 'components/NavBar';
+ import Header from 'components/Header'
+ import Responsive from 'react-responsive';
 
 export default class Product extends React.PureComponent {
   constructor(props)
@@ -112,7 +128,7 @@ deleteComment = () =>{
 destroyProduct = () =>{
   var _this = this;
   fetch("http://127.0.0.1:8000/api/destroyProduct/" + this.params.id + "?token" + this.state.token, {
-    method: "post"
+    method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
   .then(function(res){
@@ -130,7 +146,7 @@ destroyProduct = () =>{
     }
   })
 
-  var editLink = <Link activeStyle={{'#EB0B26'}} to={`/update/${this.props.params.id}`}>Edit</Link>;
+  var editLink = <Link to={`/update/${this.props.params.id}`}>Edit</Link>;
 
   var deleteProduct = "";
 
@@ -306,13 +322,13 @@ destroyProduct = () =>{
         <main style={mainContainer}>
           <div style={main}>
             <div style={imagePostContainer}>
-              <img style={imagePost}  src={this.state.product.image} />
+              <img style={imagePost} src={this.state.product.image} />
             </div>
             <h1 style={postContentheader}>{this.state.product.product}</h1>
             <p style={postContent}>{this.state.product.stock}</p>
             <p style={postContent}>{this.state.product.price}</p>
             <p style={postContent}>{this.state.product.description}</p>
-            <p style={editLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
+            <p style={editLink}><Link to={`/update/${this.props.params.id}`}>Edit</Link></p>
             <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyproduct}>Delete Post</button></p>
           </div>
           <div style={commentContainer}>
@@ -344,7 +360,7 @@ destroyProduct = () =>{
         </Responsive>
         <Responsive maxDeviceWidth={1023}>
         <main style={mainContainer}>
-          <div style={mainMobile}>
+          <div style={main}>
           <div style={imagePostContainer}>
             <img style={imagePost}  src={this.state.product.image} />
           </div>

@@ -11,15 +11,7 @@
  import FileFolder from 'material-ui/svg-icons/file/folder';
  import FontIcon from 'material-ui/FontIcon';
  import List from 'material-ui/List/List';
- import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ContentFilter from 'material-ui/svg-icons/content/filter-list';
-import FileFileDownload from 'material-ui/svg-icons/file/file-download';
  import ListItem from 'material-ui/List/ListItem';
- import DropDownMenu from 'material-ui/DropDownMenu';
- import MenuItem from 'material-ui/MenuItem';
  import Footer from 'components/Footer';
  import NavBar from 'components/NavBar';
  import Header from 'components/Header'
