@@ -1,4 +1,4 @@
-product/*
+/*
  *
  * Product
  *
@@ -32,6 +32,7 @@ export default class Product extends React.PureComponent {
       token: sessionStorage.getItem("token"),
       commentBody: "",
       comments:[],
+      user:JSON.parse(sessionStorage.getItem("user"))
     }
   }
   componentWillMount(){
@@ -40,10 +41,12 @@ export default class Product extends React.PureComponent {
       return res.json()
     })
     .then(function(json){
+      console.log(json);
       this.setState({
         product:json
       })
     }.bind(this))
+
     fetch("http://127.0.0.1:8000/api/getComments/" + this.props.params.id)
     .then(function(res){
       return res.json()
@@ -104,7 +107,7 @@ deleteComment = () =>{
     if(json.success)
     {
       alert(json.success);
-      _this.context.router.push("/");
+      _this.context.router.push("/store");
     }
     else if(json.error)
     {
@@ -127,7 +130,7 @@ deleteComment = () =>{
 }
 destroyProduct = () =>{
   var _this = this;
-  fetch("http://127.0.0.1:8000/api/destroyProduct/" + this.params.id + "?token=" + this.state.token, {
+  fetch("http://127.0.0.1:8000/api/destroyProduct/" + this.props.params.id + "?token=" + this.state.token, {
     method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
@@ -138,22 +141,34 @@ destroyProduct = () =>{
     if(json.success)
     {
       alert(json.success);
-      _this.context.router.push("/");
+      _this.context.router.push("/store");
     }
     else if(json.error)
     {
       alert(json.error);
     }
   })
+}
+  showMenu = () => {
+    const edit ={
+      textAlign: "center",
+      marginTop: "10px",
+      marginBottom: "5px"
+    };
+    const deleteLink ={
+      textAlign: "center",
+      marginTop: "0",
+      marginBottom: "20px"
+    };
 
-  var editLink = <Link to={`/update/${this.props.params.id}`}>Edit</Link>;
+  var editLink = <Link style={{color:'red !important'}} to={`/update-product/${this.props.params.id}`}>Edit</Link>;
 
-  var deleteProduct = "";
+  var deleteProduct = <button style={{color:'red', background: 'black', border:'1px solid gray'}} onTouchTap={this.destroyProduct}>Delete Product</button>;
 
   //if user isnt a admin it will show nothing
   if(this.state.user === null)
   {
-    editLink = "",
+    editLink = "";
     deleteProduct = "";
   }
   //if user is a admin it will show edit and delete link
@@ -163,6 +178,12 @@ destroyProduct = () =>{
       deleteProduct = "";
     }
   }
+  return(
+    <div>
+      <p style={edit}>{editLink}</p>
+      <p style={deleteLink}>{deleteProduct}</p>
+    </div>
+  )
 }
   render() {
     const Container={
@@ -188,8 +209,41 @@ destroyProduct = () =>{
     };
     const editLink ={
       textAlign: "center",
-      marginTop: "0",
+      marginTop: "10px",
       marginBottom: "5px"
+    };
+    const imagePostContainer ={
+      width: "100%",
+      marginTop: "20px",
+      textAlign: "center",
+      justifyContent: "center",
+      minHeight: "150px"
+    }
+    const imagePost={
+      width:"auto",
+      maxWidth: "90%",
+      height:"auto",
+      marginBottom: "20px",
+      maxHeight: "250px"
+    }
+    const productHeader ={
+      width: "100%",
+      marginTop: "0px",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      marginBottom: "0.5em",
+      textAlign: "center",
+    }
+    const productContent={
+      marginTop: "0",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      maxWidth: "100%",
+      marginBottom: "0",
+      fontSize: "20px"
+    }
+    const footerStyle ={
+      alignSelf: "flex-end",
     };
     const deleteLink ={
       textAlign: "center",
@@ -202,7 +256,7 @@ destroyProduct = () =>{
       flexWrap: "wrap",
       flexDirection: "row",
       background: "#6D6E72",
-      backgroundSize: "100% 100%",
+      color: "white"
     };
     const userComment={
       display: "flex",
@@ -215,6 +269,7 @@ destroyProduct = () =>{
     const userName={
       textDecoration: "bold",
       marginBottom: "0",
+      marginTop: "0"
     };
     const comment={
       width: "100%",
@@ -250,6 +305,10 @@ destroyProduct = () =>{
     };
     const deleteComment={
       float: "left",
+    }
+    const Content={
+      width: "20%",
+      margin: "0 auto"
     }
     const styles = {
       customWidth: {
@@ -324,17 +383,18 @@ destroyProduct = () =>{
             <div style={imagePostContainer}>
               <img style={imagePost} src={this.state.product.image} />
             </div>
-            <h1 style={postContentheader}>{this.state.product.product}</h1>
-            <p style={postContent}>{this.state.product.stock}</p>
-            <p style={postContent}>{this.state.product.price}</p>
-            <p style={postContent}>{this.state.product.description}</p>
-            <p style={editLink}><Link to={`/update/${this.props.params.id}`}>Edit</Link></p>
-            <p style={deleteLink}><button onTouchTap={this.destroyproduct}>Delete Post</button></p>
+            <h1 style={productHeader}>{this.state.product.product}</h1>
+            <div style={Content}>
+            <p style={productContent}><b>Price:</b> ${this.state.product.price}</p>
+            <p style={productContent}><b>Stock:</b> {this.state.product.stock}</p>
+            <p style={productContent}><b>Description:</b><br />{this.state.product.description}</p>
+            {this.showMenu()}
+            </div>
           </div>
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
               <div style={userComment} key={i}>
-              <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.deleteComment}>X</button></p>
+              <p style={deleteComment}><button style={{border:'1px solid white'}} onTouchTap={this.deleteComment}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>
@@ -361,38 +421,41 @@ destroyProduct = () =>{
         <Responsive maxDeviceWidth={1023}>
         <main style={mainContainer}>
           <div style={main}>
-          <div style={imagePostContainer}>
-            <img style={imagePost}  src={this.state.product.image} />
-          </div>
-          <h1 style={postContentheader}>{this.state.product.subject}</h1>
-          <p style={postContent}>{this.state.product.body}</p>
-          <p style={editLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
-          <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyproduct}>Delete Post</button></p>
+            <div style={imagePostContainer}>
+              <img style={imagePost} src={this.state.product.image} />
+            </div>
+            <h1 style={productHeader}>{this.state.product.product}</h1>
+            <div style={Content}>
+            <p style={productContent}><b>Price:</b> ${this.state.product.price}</p>
+            <p style={productContent}><b>Stock:</b> {this.state.product.stock}</p>
+            <p style={productContent}><b>Description:</b><br />{this.state.product.description}</p>
+            {this.showMenu()}
+            </div>
           </div>
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
-              <div style={userComment} key={i}>>
-                <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.deleteComment}>X</button></p>
+              <div style={userComment} key={i}>
+              <p style={deleteComment}><button style={{border:'1px solid white'}} onTouchTap={this.deleteComment}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>
               </div>
             ))}
-          </div>
-          <div style={commentBox}>
-              <p style={commentInputTitle}>Comment here:</p>
-              <TextField style={commentInputBox}
-                multiLine={true}
-                rows={10}
-                textareaStyle={styles.textareaStyle}
-                underlineStyle={styles.underlineStyle}
-                underlineFocusStyle={styles.underlineFocusStyle}
-                onChange={this.handleComment}
-                />
-               <br />
-               <RaisedButton style={styles.button2} type="submit"
-               label="Submit" onTouchTap={this.storeComment}
-               className="button-submit" primary={true} />
+            <div style={commentBox}>
+                <p style={commentInputTitle}>Comment here:</p>
+                <TextField style={commentInputBox}
+                  multiLine={true}
+                  rows={10}
+                  textareaStyle={styles.textareaStyle}
+                  underlineStyle={styles.underlineStyle}
+                  underlineFocusStyle={styles.underlineFocusStyle}
+                  onChange={this.handleComment}
+                  />
+                 <br />
+                 <RaisedButton style={styles.button2} type="submit"
+                 label="Submit" onTouchTap={this.storeComment}
+                 className="button-submit" primary={true} />
+            </div>
           </div>
         </main>
         </Responsive>
@@ -401,3 +464,6 @@ destroyProduct = () =>{
     );
   }
 }
+Product.contextTypes = {
+  router: React.PropTypes.object
+};

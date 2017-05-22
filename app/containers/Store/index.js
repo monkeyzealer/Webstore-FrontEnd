@@ -46,29 +46,32 @@ export default class Store extends React.PureComponent {
 
    var createCategoryLink = <Link to="/create-category" style={{color:'red', textDecoration:'none', fontSize:'18px', border:'1px solid gray', padding:'10px', background:'black'}}>Create Category</Link>;
 
+  var deleteCategoryLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/delete-category">Delete Category</Link>;
+
    var _this = this
 
    if(this.state.user === null)
    {
     createProductLink = "";
     createCategoryLink = "";
+    deleteCategoryLink = "";
    }
    else {
      if(this.state.user.roleID !== 1) {
        createProductLink = "";
        createCategoryLink = "";
+       deleteCategoryLink = "";
 
      }
    }
 return(
   <div>
-    {createProductLink} {createCategoryLink}
+    {createProductLink} {createCategoryLink} {deleteCategoryLink}
   </div>
 )
 
 }
 
- handleChange = (event, index, value) => this.setState({value});
 
   render() {
     const Container={
@@ -121,7 +124,7 @@ return(
       display: "flex",
       margin: "0",
       flex: "auto",
-      width: "25%",  /* <-- more control */
+      width: "20%",  /* <-- more control */
     };
     const productContent={
       width: "100%",
@@ -144,7 +147,7 @@ return(
     };
     const Productbox={
         backgroundColor: "#BdBEC0",
-        width: "100%",
+        width: "24%",
         margin: "0.5em",
         textDecoration: "none",
         color: "black",
@@ -177,8 +180,7 @@ return(
         <div style={AdminBar}>
         {this.showMenu()}
         </div>
-        <ui style={flexGrid}>
-          <li style={flexGridLi}>
+        <div style={flexGrid}>
         {this.state.products.map((product,i) => (
           <Link to={`/product/${product.id}`} style={Productbox}>
             <div style={Product}>
@@ -194,8 +196,7 @@ return(
             </div>
           </Link>
         ))}
-        </li>
-      </ui>
+      </div>
       </div>
     </main>
     <Footer style={footerStyle} />

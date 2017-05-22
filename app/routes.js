@@ -64,10 +64,10 @@ getComponent(nextState, cb) {
 },
 },
 {
-path: '/create-category',
-name: 'Create Category',
+path: '/update-product/:id',
+name: 'Update Product',
 getComponent(nextState, cb) {
-  import('containers/CreateCategory')
+  import('containers/UpdateProduct')
     .then(loadModule(cb))
     .catch(errorLoading);
 },
@@ -79,6 +79,24 @@ getComponent(nextState, cb) {
    import('containers/Product')
      .then(loadModule(cb))
      .catch(errorLoading);
+},
+},
+{
+path: '/create-category',
+name: 'Create Category',
+getComponent(nextState, cb) {
+  import('containers/CreateCategory')
+    .then(loadModule(cb))
+    .catch(errorLoading);
+},
+},
+{
+path: '/delete-category',
+name: 'Delete Category',
+getComponent(nextState, cb) {
+  import('containers/DeleteCategory')
+    .then(loadModule(cb))
+    .catch(errorLoading);
 },
 },
     {

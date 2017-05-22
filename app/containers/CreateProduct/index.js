@@ -179,6 +179,7 @@ export default class CreateProduct extends React.PureComponent {
       marginTop: "0",
       width: "100%",
       height: "265px",
+      maxHeight:"275px",
     };
     const h2title={
       paddingTop: "0",
@@ -315,7 +316,7 @@ export default class CreateProduct extends React.PureComponent {
         <p style={Title}>Stock:</p>
         <TextField
         onChange={this.handleStock}
-        value={this.state.Stock}
+        value={this.state.stock}
         style={contentBox}
         hintText="&nbsp;"
         hintStyle={styles.hintStyle}
