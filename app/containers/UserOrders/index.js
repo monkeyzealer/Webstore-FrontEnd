@@ -1,26 +1,26 @@
 /*
  *
- * Orders
+ * UserOrders
  *
  */
 
-import React from 'react';
-import Helmet from 'react-helmet';
-import {Link} from 'react-router';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-import Footer from 'components/Footer';
-import NavBar from 'components/NavBar';
-import Header from 'components/Header'
-import Responsive from 'react-responsive';
+ import React from 'react';
+ import Helmet from 'react-helmet';
+ import {Link} from 'react-router';
+ import {
+   Table,
+   TableBody,
+   TableHeader,
+   TableHeaderColumn,
+   TableRow,
+   TableRowColumn,
+ } from 'material-ui/Table';
+ import Footer from 'components/Footer';
+ import NavBar from 'components/NavBar';
+ import Header from 'components/Header'
+ import Responsive from 'react-responsive';
 
-export default class Orders extends React.PureComponent {
+export default class UserOrders extends React.PureComponent {
   constructor(props){
     super(props);
     this.state={

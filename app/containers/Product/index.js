@@ -22,6 +22,10 @@
  import NavBar from 'components/NavBar';
  import Header from 'components/Header'
  import Responsive from 'react-responsive';
+ import Dialog from 'material-ui/Dialog';
+
+
+
 
 export default class Product extends React.PureComponent {
   constructor(props)
@@ -31,8 +35,13 @@ export default class Product extends React.PureComponent {
       product:"",
       token: sessionStorage.getItem("token"),
       commentBody: "",
+      amount: 0,
+      totalPrice: 0,
+      comment: "",
       comments:[],
-      user:JSON.parse(sessionStorage.getItem("user"))
+      user:JSON.parse(sessionStorage.getItem("user")),
+      open:false
+
     }
   }
   componentWillMount(){
@@ -185,12 +194,70 @@ destroyProduct = () =>{
     </div>
   )
 }
+
+
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+  storeOrder = () =>{
+    var _this = this
+    var data = new FormData();
+    data.append("productID", this.props.params.id) /* i dont think i need this */
+    data.append("amount", this.state.amount)
+    data.append("comment", this.state.comment)
+
+    fetch("http://127.0.0.1:8000/api/storeOrder?token="+this.state.token,
+  {
+    method:"post",
+    body:data,
+    headers:{"Authorization":"bearer"+this.state.token}
+  })
+  .then(function(res){
+    return res.json()
+  })
+  .then(function(json){
+    if(json.error){
+      alert(json.error);
+    }
+    else if (json.success) {
+      alert("Success! Your Total is $"+json.total);
+      _this.setState({
+        amount:"",
+        comment:"",
+      })
+    }
+  })
+  }
+
+  handleAmount = (event) => {
+    this.setState({
+      amount:event.target.value
+
+    })
+    console.log(this.state.amount);
+  }
+  handleOrderComment = (event) => {
+    this.setState({
+      comment:event.target.value
+
+    })
+    console.log(this.state.comment);
+  }
+
   render() {
     const Container={
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
       minHeight: "100vh",
+    };
+    const customContentStyle = {
+      width: '30%',
+      maxWidth: 'none',
     };
     const mainContainer={
       display: "flex",
@@ -248,7 +315,7 @@ destroyProduct = () =>{
     const deleteLink ={
       textAlign: "center",
       marginTop: "0",
-      marginBottom: "20px"
+      marginBottom: "50px"
     };
     const commentContainer={
       width: "100%",
@@ -287,6 +354,7 @@ destroyProduct = () =>{
       marginTop: "0",
       width: "90%",
       height: "255px",
+      maxHeight:"255px"
     };
     const commentBox={
       width: "100%",
@@ -309,6 +377,38 @@ destroyProduct = () =>{
     const Content={
       width: "20%",
       margin: "0 auto"
+    }
+    const PurchaseBox={
+      width:"100%",
+    }
+    const Purchase={
+      display: "flex",
+      alignSelf:"center"
+    }
+    const formContainer={
+      padding: "15px",
+      fontWeight: "bold",
+      color: "black"
+    };
+    const Title={
+      marginBottom: "0",
+      paddingTop: "5px",
+      width: "50%",
+      fontWeight: "bold",
+      marginTop: "0"
+    };
+    const orderCommentBox={
+      marginBottom: "0",
+      marginTop: "0",
+      width: "100%",
+      height: "265px",
+      maxHeight:"265px",
+    };
+    const amountNumber={
+      background: "rgba(0, 0, 0, 0.3)",
+      marginLeft: "5px",
+      color: "black",
+      padding: "5px",
     }
     const styles = {
       customWidth: {
@@ -360,6 +460,7 @@ destroyProduct = () =>{
       button: {
       backgroundColor: "black !important" ,
       color: "red !important",
+      margin: "0 auto !important"
     },
     button2: {
     margin: 12,
@@ -373,6 +474,18 @@ destroyProduct = () =>{
     border: "1px solid black important",
   },
 };
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onTouchTap={this.storeOrder}
+      />,
+    ];
     return (
       <div style={Container}>
         <Helmet title="Product" meta={[ { name: 'description', content: 'Description of Product' }]}/>
@@ -389,6 +502,34 @@ destroyProduct = () =>{
             <p style={productContent}><b>Stock:</b> {this.state.product.stock}</p>
             <p style={productContent}><b>Description:</b><br />{this.state.product.description}</p>
             {this.showMenu()}
+            <div style={PurchaseBox}>
+            <div style={Purchase}>
+            <RaisedButton label="Purchase" className="button-submit" style={styles.button} style={{display: 'flex', alignSelf: 'center', margin: '0 auto'}} backgroundColor="Black" labelColor="red !important" onTouchTap={this.handleOpen} />
+            <Dialog
+              title={this.state.product.product}
+              actions={actions}
+              modal={true}
+              contentStyle={customContentStyle}
+              open={this.state.open}
+              actionsContainerStyle={{textAlign:'center'}}
+            >
+            <div style={formContainer}>
+            <p style={Title}>Amount:</p>
+            <input type="number" name="quantity" min="1" max={this.state.product.stock} value={this.state.amount} onChange={this.handleAmount} style={amountNumber} ></input>
+            <p style={Title}>Comment:</p>
+              <TextField style={orderCommentBox}
+                onChange={this.handleOrderComment}
+                value={this.state.comment}
+                multiLine={true}
+                rows={10}
+                textareaStyle={styles.textareaStyle}
+                underlineStyle={styles.underlineStyle}
+                underlineFocusStyle={styles.underlineFocusStyle}
+              />
+            </div>
+            </Dialog>
+            </div>
+            </div>
             </div>
           </div>
           <div style={commentContainer}>

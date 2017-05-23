@@ -99,6 +99,15 @@ getComponent(nextState, cb) {
     .catch(errorLoading);
 },
 },
+{
+path: '/orders',
+name: 'Orders',
+getComponent(nextState, cb) {
+  import('containers/Orders')
+    .then(loadModule(cb))
+    .catch(errorLoading);
+},
+},
     {
      path: '*',
      name: 'notfound',

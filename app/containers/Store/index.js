@@ -46,7 +46,7 @@ export default class Store extends React.PureComponent {
 
    var createCategoryLink = <Link to="/create-category" style={{color:'red', textDecoration:'none', fontSize:'18px', border:'1px solid gray', padding:'10px', background:'black'}}>Create Category</Link>;
 
-  var deleteCategoryLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/delete-category">Delete Category</Link>;
+   var deleteCategoryLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/delete-category">Delete Category</Link>;
 
    var _this = this
 
@@ -61,12 +61,11 @@ export default class Store extends React.PureComponent {
        createProductLink = "";
        createCategoryLink = "";
        deleteCategoryLink = "";
-
      }
    }
 return(
   <div>
-    {createProductLink} {createCategoryLink} {deleteCategoryLink}
+    {createProductLink} {createCategoryLink} {deleteCategoryLink} <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/orders">View Orders</Link>
   </div>
 )
 
