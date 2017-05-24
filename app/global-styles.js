@@ -29,7 +29,7 @@ injectGlobal`
   hr {
     height: 0;
     overflow: visible;
-    width: 55%;
+    width: 95%;
 }
   nav a:hover {
     color: red;

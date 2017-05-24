@@ -63,6 +63,11 @@ export default class Home extends React.PureComponent {
       textAlign: "center",
       padding: "20px",
     }
+    const VideoMobile={
+      textAlign: "center",
+      padding: "10px",
+      margin: "5px"
+    }
     const Title={
       width: "100%",
       margin: "10px auto",
@@ -128,7 +133,7 @@ export default class Home extends React.PureComponent {
         </p>
     </div>
   </main>
-        </Responsive>
+  </Responsive>
         <Responsive maxDeviceWidth={1023}>
           <main style={mainContainer}>
             <div style={main}>
@@ -149,8 +154,8 @@ export default class Home extends React.PureComponent {
               </div>
               </p>
               <br /><hr />
-              <p style={Video}>
-              <iframe src="https://player.vimeo.com/video/167940688" width="1050" height="591" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              <p style={VideoMobile}>
+              <iframe src="https://player.vimeo.com/video/167940688" width="250" height="141" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
               </p>
               <h1 style={Title}>
               BUILDING THE PROGRAMMERS OF THE FUTURE

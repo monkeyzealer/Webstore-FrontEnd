@@ -89,8 +89,8 @@ destroyCategory = () =>{
       paddingTop: "60px",
     };
     const formContainer={
-      border: "1px solid black",
-      width:"20%",
+      width:"90%",
+      maxWidth:"400px",
       margin: "0 auto",
       position: "relative",
       padding: "15px",
@@ -103,7 +103,7 @@ destroyCategory = () =>{
     const categories = {
       border: "1px solid lightgray",
       marginTop: "10px",
-      width: "300px",
+      width: "90%",
       padding: "15px",
       paddingTop: "0",
     }
@@ -190,6 +190,7 @@ destroyCategory = () =>{
                 floatingLabelText="Categories"
                 value={this.state.categoryID}
                 onChange={this.handleCategory}
+                style={styles.customWidth}
                 className="Categories"
                 >
                 {this.state.categories.map((category, i) => (
@@ -198,7 +199,7 @@ destroyCategory = () =>{
               </SelectField>
               </div>
               <br />
-              <button style={{color:'red', background: 'black', border:'1px solid gray'}} onTouchTap={this.destroyCategory}>Delete Category</button>
+              <button style={{color:'red', background: 'black', padding: '10px', border:'1px solid gray'}} onTouchTap={this.destroyCategory}>Delete Category</button>
             </div>
         </div>
       </main>

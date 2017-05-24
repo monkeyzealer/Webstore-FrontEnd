@@ -82,8 +82,8 @@ export default class CreateCategory extends React.PureComponent {
       paddingTop: "60px",
     };
     const formContainer={
-      border: "1px solid black",
-      width:"20%",
+      width:"90%",
+      maxWidth:"400px",
       margin: "0 auto",
       position: "relative",
       padding: "15px",
@@ -201,6 +201,7 @@ export default class CreateCategory extends React.PureComponent {
           </div>
         </div>
       </main>
+      <Footer style={footerStyle} />
       </div>
     );
   }

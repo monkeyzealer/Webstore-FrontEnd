@@ -108,6 +108,15 @@ getComponent(nextState, cb) {
     .catch(errorLoading);
 },
 },
+{
+path: '/user-orders',
+name: 'User Orders',
+getComponent(nextState, cb) {
+  import('containers/UserOrders')
+    .then(loadModule(cb))
+    .catch(errorLoading);
+},
+},
     {
      path: '*',
      name: 'notfound',

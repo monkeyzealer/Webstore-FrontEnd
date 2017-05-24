@@ -153,8 +153,8 @@ export default class CreateProduct extends React.PureComponent {
       paddingTop: "60px",
     };
     const formContainer={
-      border: "1px solid black",
-      width:"50%",
+      width:"90%",
+      maxWidth:"400px",
       margin: "0 auto",
       position: "relative",
       padding: "15px",
@@ -171,7 +171,7 @@ export default class CreateProduct extends React.PureComponent {
     const contentBox={
       marginBottom: "0",
       marginTop: "0",
-      width: "32.5%",
+      width: "90%",
       height: "45px",
     };
     const descriptionBox={
@@ -197,7 +197,7 @@ export default class CreateProduct extends React.PureComponent {
     const categories = {
       border: "1px solid lightgray",
       marginTop: "10px",
-      width: "300px",
+      width: "90%",
       padding: "15px",
       paddingTop: "0",
     }
@@ -306,6 +306,7 @@ export default class CreateProduct extends React.PureComponent {
           value={this.state.categoryID}
           onChange={this.handleCategory}
           className="Categories"
+          style={styles.customWidth}
           >
           {this.state.categories.map((category, i) => (
             <MenuItem value={category.id} primaryText={category.category} key={i}/>

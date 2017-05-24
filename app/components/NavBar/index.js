@@ -35,7 +35,7 @@ class NavBar extends React.PureComponent {
       else if(this.state.menuOpen == true)
       {
         this.setState({
-          menuOpen:False
+          menuOpen:false
         })
       }
     }
@@ -44,6 +44,14 @@ class NavBar extends React.PureComponent {
       const navLink = {
         margin:"5px",
         padding:"5px",
+      }
+      const nav = {
+        display:"flex",
+        flexDirection:"column",
+        alignSelf:'center',
+
+        padding: "0",
+        height: "250px"
       }
 
       var storeLink = <Link activeStyle={{color:'red'}} to="/store" style={navLink}>Store</Link>;
@@ -74,7 +82,7 @@ class NavBar extends React.PureComponent {
     if(this.state.menuOpen == true)
     {
       return(
-        <nav>
+        <nav style={nav}>
         <Link activeStyle={{color:'red'}} to="/" style={navLink}>Home</Link>
         <Link activeStyle={{color:'red'}} to="/about" style={navLink}>About</Link>
         {storeLink}

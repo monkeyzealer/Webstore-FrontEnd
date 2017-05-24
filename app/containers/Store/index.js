@@ -42,22 +42,30 @@ export default class Store extends React.PureComponent {
     }.bind(this))
   }
   showMenu = () => {
-   var createProductLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/create-product">Create Product</Link>;
+    const AdminBarLink ={
+      marginBottom: "25px"
+    };
+
+   var createProductLink = <Link style={{marginBottom: '10px', color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/create-product">Create Product</Link>;
 
    var createCategoryLink = <Link to="/create-category" style={{color:'red', textDecoration:'none', fontSize:'18px', border:'1px solid gray', padding:'10px', background:'black'}}>Create Category</Link>;
 
    var deleteCategoryLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/delete-category">Delete Category</Link>;
 
+   var OrdersLink = <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/orders">View Orders</Link>
+
    var _this = this
 
    if(this.state.user === null)
    {
+    OrdersLink = "";
     createProductLink = "";
     createCategoryLink = "";
     deleteCategoryLink = "";
    }
    else {
      if(this.state.user.roleID !== 1) {
+       OrdersLink = "";
        createProductLink = "";
        createCategoryLink = "";
        deleteCategoryLink = "";
@@ -65,7 +73,12 @@ export default class Store extends React.PureComponent {
    }
 return(
   <div>
-    {createProductLink} {createCategoryLink} {deleteCategoryLink} <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/orders">View Orders</Link>
+  <Responsive minDeviceWidth={1024}>
+    {createProductLink} {createCategoryLink} {deleteCategoryLink} {OrdersLink} <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/user-orders">My Orders</Link>
+  </Responsive>
+  <Responsive maxDeviceWidth={1023}>
+  <p style={AdminBarLink}>{createProductLink}</p> <p style={AdminBarLink}>{createCategoryLink}</p> <p style={AdminBarLink}> {deleteCategoryLink} </p> <p style={AdminBarLink}> {OrdersLink} </p> <p> <Link style={{color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/user-orders">My Orders</Link></p>
+</Responsive>
   </div>
 )
 
@@ -98,6 +111,9 @@ return(
     };
     const footerStyle ={
       alignSelf: "flex-end",
+    };
+    const AdminBarLink ={
+      marginBottom: "5px"
     };
     const productImage={
       width: "100%",
@@ -164,7 +180,14 @@ return(
       color: "red !important",
       textDecoration: "none"
     }
-
+    const ProductboxMobile={
+        backgroundColor: "#BdBEC0",
+        width: "100%",
+        margin: "0.5em",
+        textDecoration: "none",
+        color: "black",
+        border: "1px solid black"
+    };
     const styles = {
   customWidth: {
     width: 200,
@@ -174,6 +197,7 @@ return(
       <div style={Container}>
         <Helmet title="Store" meta={[ { name: 'description', content: 'Description of Store' }]}/>
         <Header />
+        <Responsive minDeviceWidth={1024}>
         <main style={mainContainer}>
         <div style={main}>
         <div style={AdminBar}>
@@ -198,6 +222,33 @@ return(
       </div>
       </div>
     </main>
+    </Responsive>
+    <Responsive maxDeviceWidth={1023}>
+    <main style={mainContainer}>
+    <div style={main}>
+    <div style={AdminBar}>
+    {this.showMenu()}
+    </div>
+    <div style={flexGrid}>
+    {this.state.products.map((product,i) => (
+      <Link to={`/product/${product.id}`} style={ProductboxMobile}>
+        <div style={Product}>
+          <img
+              src={product.image}
+              style={productImage}
+              className="Product"
+            />
+        </div>
+        <div style={productContent}>
+          <h3 style={productTitle}> {product.product} </h3>
+          <div style={price}>Price: ${product.price}</div>
+        </div>
+      </Link>
+    ))}
+  </div>
+  </div>
+</main>
+</Responsive>
     <Footer style={footerStyle} />
     </div>
     );

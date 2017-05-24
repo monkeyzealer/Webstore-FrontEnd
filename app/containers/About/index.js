@@ -40,10 +40,10 @@ export default class About extends React.PureComponent {
       paddingTop: "70px",
     };
     const About={
-      width: "100%",
+      width: "90%",
       margin: "10px auto",
-      paddingLeft: "50px",
-      paddingRight: "50px",
+      paddingLeft: "10px",
+      paddingRight: "10px",
       display: "flex",
       flexDirection: "column",
 
@@ -67,8 +67,16 @@ export default class About extends React.PureComponent {
       margin: "30px auto",
     }
     const list={
-      width: "50%",
+      width: "90%",
       margin: "0 auto",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+    }
+    const VideoMobile={
+      textAlign: "center",
+      padding: "5px",
+      marginTop: "5px",
+      marginBottom: "5px"
     }
     return (
       <div style={Container}>
@@ -216,7 +224,7 @@ export default class About extends React.PureComponent {
           into the scope of our program and
           what kids can do.
           </p>
-          <p style={Video}><iframe width="854" height="480"
+          <p style={VideoMobile}><iframe width="250" height="141"
           src="https://www.youtube.com/embed/YYxOKU2c04c"
           frameborder="0" allowfullscreen></iframe></p>
           <h1 style={AboutHeader}>BENEFITS<hr /></h1>
