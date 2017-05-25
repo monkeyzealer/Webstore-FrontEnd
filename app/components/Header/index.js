@@ -47,6 +47,9 @@ class Header extends React.PureComponent {
     height: "auto",
     paddingTop: "0"
   };
+   const headerboxMobile={
+      width: "100%"
+    }
   return (
     <header>
     <Responsive minDeviceWidth={1024}>
@@ -61,7 +64,7 @@ class Header extends React.PureComponent {
     <Responsive maxDeviceWidth={1023}>
     <div style={header}>
         <div style={headerbarMobile}>
-          <div style={headerbox}>
+          <div style={headerboxMobile}>
           <NavBar />
           </div>
         </div>

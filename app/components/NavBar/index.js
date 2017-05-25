@@ -42,16 +42,20 @@ class NavBar extends React.PureComponent {
 
     showMenu = () => {
       const navLink = {
-        margin:"5px",
         padding:"5px",
+        border: "1px solid white",
+        background: "black",
+        textDecoration: "none",
+        fontWeight: "bold",
       }
       const nav = {
         display:"flex",
         flexDirection:"column",
         alignSelf:'center',
-
+        textAlign:"center",
         padding: "0",
-        height: "250px"
+        margin: "5px auto",
+        marginBottom: "15px"
       }
 
       var storeLink = <Link activeStyle={{color:'red'}} to="/store" style={navLink}>Store</Link>;
@@ -71,13 +75,12 @@ class NavBar extends React.PureComponent {
         signInLink = <Link activeStyle={{color:'red'}} to="/SignIn" style={navLink}>Sign In</Link>;
         registerLink = <Link activeStyle={{color:'red'}} to="/signup" style={navLink}>Register</Link>;
       }
-      else {
+      //if user is logged in it will show the sign out links
+      else
+        {
         signInLink = "";
         registerLink = "";
-        if(this.state.user.roleID >= 1) {
-          storeLink = "";
         }
-      }
 
     if(this.state.menuOpen == true)
     {
@@ -103,10 +106,20 @@ class NavBar extends React.PureComponent {
     const navBar = {
 
     }
+    const navBarMobile = {
+    width: "100%"
+    }
+
     const nav = {
       content: "",
       clear: "both",
       display: "table",
+    }
+    const navMobile = {
+      content: "",
+      clear: "both",
+      display: "table",
+      margin: "0 auto",
     }
     const navLink = {
       margin:'5px',
@@ -188,9 +201,10 @@ class NavBar extends React.PureComponent {
         </Responsive>
 
         <Responsive maxDeviceWidth={1023}>
-          <nav style={navBar}>
+        <p style={{textAlign:'center', margin: '0', marginTop: '20px'}}><img width="80%" src="http://i1065.photobucket.com/albums/u395/monkeyzealer/hack.sumo__zpslgl8q6we.png" /></p>
+          <nav style={navBarMobile}>
             <div style={titleStyle}>{this.props.chicken}</div>
-            <nav style={nav}>
+            <nav style={navMobile}>
               <IconButton
                 iconStyle={styles.iconStyle}
                 onTouchTap={this.handleMenu}>

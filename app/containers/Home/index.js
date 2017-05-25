@@ -137,7 +137,7 @@ export default class Home extends React.PureComponent {
         <Responsive maxDeviceWidth={1023}>
           <main style={mainContainer}>
             <div style={main}>
-            <p style={imageContainer}><img style={Image} width="50%" src="https://static1.squarespace.com/static/55f05957e4b049cf1b1396b0/t/55f19cdbe4b0182a80facb52/1441897692346/?format=750w" /></p>
+            <p style={imageContainer}><img style={Image} width="100%" src="https://static1.squarespace.com/static/55f05957e4b049cf1b1396b0/t/55f19cdbe4b0182a80facb52/1441897692346/?format=750w" /></p>
               <hr /><br />
               <p style={Quote}>
               "We all recognize that preparing our students for the demands of this 21st century world requires us to engage students in learning that is collaborative, problem-based, and integrates technology. However, that’s much easier said than done. Sumo Robot League has made it easier for us to adapt and adopt by providing training, curriculum, materials, and support."

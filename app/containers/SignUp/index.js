@@ -126,8 +126,9 @@ export default class SignUp extends React.PureComponent {
       textAlign: "center"
     }
     const formContainer={
-      width:"350px",
-      margin: "0 auto",
+      width:"90%",
+      maxWidth:"400px",
+      margin: "10px auto",
       position: "relative",
       top: "50%",
       transform: "translateY(-50%)",
