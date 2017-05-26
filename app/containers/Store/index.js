@@ -16,6 +16,10 @@
  import NavBar from 'components/NavBar';
  import Header from 'components/Header'
  import Responsive from 'react-responsive';
+ import TextField from 'material-ui/TextField';
+ import {orange500, blue500, brown500, brown900, brown700,} from 'material-ui/styles/colors';
+ import SelectField from 'material-ui/SelectField';
+ import MenuItem from 'material-ui/MenuItem';
 
  /**
   * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
@@ -26,8 +30,11 @@ export default class Store extends React.PureComponent {
   constructor(props){
     super(props);
     this.state={
+      filterProducts:[],
       products:[],
-      user:JSON.parse(sessionStorage.getItem("user"))
+      categories:[],
+      user:JSON.parse(sessionStorage.getItem("user")),
+      categoryID:0,
     }
   }
   componentWillMount(){
@@ -37,14 +44,112 @@ export default class Store extends React.PureComponent {
     })
     .then(function(json){
       this.setState({
-        products:json
+        products:json,
+        filterProducts:json
+      })
+    }.bind(this))
+    fetch("http://127.0.0.1:8000/api/getCategories?token="+this.state.token)
+    .then(function(res){
+      return res.json()
+    })
+    .then(function(json){
+      this.setState({
+        categories:json
       })
     }.bind(this))
   }
+
+  handleCategory = (event, index, value) => {
+    var products = this.state.products;
+    var newProducts = [];
+
+    this.setState({categoryID:value});
+    if(value === null) {
+      this.setState({
+        filterProducts: products
+      })
+    }
+    else {
+      for(var i = 0; i < products.length; i++)
+      {
+        if(products[i].categoryID === value){
+          newProducts.push(products[i]);
+        }
+      }
+      this.setState({
+        filterProducts:newProducts
+      })
+    }
+  }
+
   showMenu = () => {
     const AdminBarLink ={
       marginBottom: "25px"
     };
+    const styles = {
+  customWidth: {
+    width: 200,
+  },
+  underlineStyle: {
+    borderColor: brown700,
+  },
+  underlineFocusStyle: {
+    borderColor: brown900,
+  },
+  hintStyle: {
+    width: "100%",
+    height: "30px",
+    color: "white",
+  },
+
+  inputStyle: {
+    background: "rgba(0, 0, 0, 0.3)",
+    width: "100%",
+    height: "30px",
+    color: "white",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+  },
+  textareaStyle: {
+    background: "rgba(0, 0, 0, 0.3)",
+    marginTop: "0",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    height: "258px",
+    paddingTop: "5px",
+    paddingBottom: "5px",
+    marginBottom: "0"
+  },
+  uploadButton: {
+    verticalAlign: 'middle',
+    color: "red !important",
+  },
+  uploadInput: {
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: '100%',
+    opacity: 0,
+  },
+  button: {
+  backgroundColor: brown700,
+  color: "red !important",
+},
+button2: {
+margin: 12,
+backgroundColor: brown900,
+},
+label1: {
+color: "red"
+},
+floatlabel1: {
+color: "red !important",
+border: "1px solid black important",
+},
+};
 
    var createProductLink = <Link style={{marginBottom: '10px', color:'red', textDecoration:'none', padding:'10px', border:'1px solid gray', background:'black', fontSize:'18px'}} to="/create-product">Create Product</Link>;
 
@@ -188,10 +293,81 @@ return(
         color: "black",
         border: "1px solid black"
     };
+    const search={
+      marginBottom: "0",
+      border: "1px solid black",
+      paddingLeft: "15px",
+      paddingRight: "15px",
+      width: "250px",
+      marginTop:"15px"
+    }
+    const searchTitle={
+      marginBottom: "0",
+      marginTop: "15px"
+    }
     const styles = {
   customWidth: {
     width: 200,
   },
+  underlineStyle: {
+    borderColor: brown700,
+  },
+  underlineFocusStyle: {
+    borderColor: brown900,
+  },
+  hintStyle: {
+    width: "100%",
+    height: "30px",
+    color: "white",
+  },
+
+  inputStyle: {
+    background: "rgba(0, 0, 0, 0.3)",
+    width: "100%",
+    height: "30px",
+    color: "white",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+  },
+  textareaStyle: {
+    background: "rgba(0, 0, 0, 0.3)",
+    marginTop: "0",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    height: "258px",
+    paddingTop: "5px",
+    paddingBottom: "5px",
+    marginBottom: "0"
+  },
+  uploadButton: {
+    verticalAlign: 'middle',
+    color: "red !important",
+  },
+  uploadInput: {
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: '100%',
+    opacity: 0,
+  },
+  button: {
+  backgroundColor: brown700,
+  color: "red !important",
+},
+button2: {
+margin: 12,
+backgroundColor: brown900,
+},
+label1: {
+color: "red",
+},
+floatlabel1: {
+color: "red !important",
+border: "1px solid black important",
+},
 };
     return (
       <div style={Container}>
@@ -202,9 +378,24 @@ return(
         <div style={main}>
         <div style={AdminBar}>
         {this.showMenu()}
+        <div style={search}>
+        <h2 style={searchTitle}>search by:</h2>
+        <SelectField
+          labelStyle={styles.label1}
+          value={this.state.categoryID}
+          onChange={this.handleCategory}
+          className="Categories"
+          style={styles.customWidth}
+          >
+          <MenuItem value={null} primaryText="All" />
+          {this.state.categories.map((category, i) => (
+            <MenuItem value={category.id} primaryText={category.category} key={i}/>
+          ))}
+        </SelectField>
+         </div>
         </div>
         <div style={flexGrid}>
-        {this.state.products.map((product,i) => (
+        {this.state.filterProducts.map((product,i) => (
           <Link to={`/product/${product.id}`} style={Productbox}>
             <div style={Product}>
               <img
@@ -228,9 +419,23 @@ return(
     <div style={main}>
     <div style={AdminBar}>
     {this.showMenu()}
+    <div style={search}>
+    <h2 style={searchTitle}>search by:</h2>
+    <SelectField
+      labelStyle={styles.label1}
+      value={this.state.categoryID}
+      onChange={this.handleCategory}
+      className="Categories"
+      style={styles.customWidth}
+      >
+      {this.state.categories.map((category, i) => (
+        <MenuItem value={category.id} primaryText={category.category} key={i}/>
+      ))}
+    </SelectField>
+     </div>
     </div>
     <div style={flexGrid}>
-    {this.state.products.map((product,i) => (
+    {this.state.filterProducts.map((product,i) => (
       <Link to={`/product/${product.id}`} style={ProductboxMobile}>
         <div style={Product}>
           <img

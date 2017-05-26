@@ -89,7 +89,9 @@ class Footer extends React.PureComponent {
     marginRight: "5px",
     }
     const address={
-      marginTop:"5px"
+      marginTop:"5px",
+      fontFamily: "Times, 'Times New Roman', serif; !important",
+      marginBottom:"10px"
     }
 
     return (
@@ -109,16 +111,16 @@ class Footer extends React.PureComponent {
         <div style={footLeft}> &copy; Sumo Robot League 2017 </div>
         </div>
         <div style={footerInfo}>
-        <p style={footRight}> Powered by Code Monkey Web Design</p>
+        <div style={footRight}> Powered by Code Monkey Web Design</div>
         </div>
         </div>
       </Responsive>
       <Responsive maxDeviceWidth={1023}>
         <div style={footerInfoMobile}>
-        <p style={footLeftMobile}> &copy; Sumo Robot League 2017</p>
+        <div style={footLeftMobile}> &copy; Sumo Robot League 2017</div>
         </div>
         <div style={footerInfoMobile}>
-        <p style={footRightMobile}> Powered by Code Monkey Web Design</p>
+        <div style={footRightMobile}> Powered by Code Monkey Web Design</div>
         </div>
       </Responsive>
       </footer>

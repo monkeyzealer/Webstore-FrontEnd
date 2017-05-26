@@ -34,10 +34,7 @@ injectGlobal`
   nav a:hover {
     color: red;
   }
-
   .Categories button {
-    background: #2C3539 !important;
-    margin: 0 !important;
     background: white !important;
   }
   .button-submit span {
@@ -52,4 +49,7 @@ injectGlobal`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
+  footer p {
+    font-family: Times, 'Times New Roman', serif;
+}
 `;
