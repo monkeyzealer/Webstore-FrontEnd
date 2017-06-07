@@ -172,7 +172,7 @@ destroyProduct = () =>{
 
   var editLink = <Link style={{color:'red !important'}} to={`/update-product/${this.props.params.id}`}>Edit</Link>;
 
-  var deleteProduct = <button style={{color:'red', background: 'black', border:'1px solid gray'}} onTouchTap={this.destroyProduct}>Delete Product</button>;
+  var deleteProduct = <button style={{color:'red', background: 'black', border:'1px solid gray', padding:'10px',}} onTouchTap={this.destroyProduct}>Delete Product</button>;
 
   //if user isnt a admin it will show nothing
   if(this.state.user === null)

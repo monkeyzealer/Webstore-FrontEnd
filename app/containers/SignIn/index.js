@@ -91,6 +91,8 @@ export default class SignIn extends React.PureComponent {
       flexWrap: "wrap",
       flexDirection: "column",
       paddingBottom: "20px",
+      paddingTop: "60px",
+      justifyContent: "center"
     };
     const emailBox={
       width: "100%",
@@ -114,10 +116,8 @@ export default class SignIn extends React.PureComponent {
     };
     const formContainer={
       width:"300px",
-      margin: "0 auto",
-      position: "relative",
-      top: "50%",
-      transform: "translateY(-50%)",
+      margin: "20px auto",
+      verticalAlign: "middle",
     };
     const h2title={
       paddingTop: "0",

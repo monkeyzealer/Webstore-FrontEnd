@@ -87,15 +87,12 @@ destroyCategory = () =>{
       flexDirection: "column",
       paddingBottom: "20px",
       paddingTop: "60px",
+      justifyContent: "center"
     };
     const formContainer={
       width:"90%",
       maxWidth:"400px",
       margin: "0 auto",
-      position: "relative",
-      padding: "15px",
-      top: "50%",
-      transform: "translateY(-50%)",
     };
     const footerStyle ={
       alignSelf: "flex-end",

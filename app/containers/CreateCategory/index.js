@@ -80,15 +80,12 @@ export default class CreateCategory extends React.PureComponent {
       flexDirection: "column",
       paddingBottom: "20px",
       paddingTop: "60px",
+      justifyContent: "center"
     };
     const formContainer={
       width:"90%",
       maxWidth:"400px",
       margin: "0 auto",
-      position: "relative",
-      padding: "15px",
-      top: "50%",
-      transform: "translateY(-50%)",
     };
     const Title={
       marginBottom: "0",
@@ -196,7 +193,7 @@ export default class CreateCategory extends React.PureComponent {
             />
             <br />
             <RaisedButton style={styles.button} type="submit"
-            backgroundColor="Black" labelColor="red !important" onTouchTap={this.storeCategory} label="Submit"
+            backgroundColor="Black" labelColor="red" onTouchTap={this.storeCategory} label="Submit"
             className="button-submit" primary={true} />
           </div>
         </div>

@@ -124,7 +124,7 @@ export default class UpdateProduct extends React.PureComponent {
     {
       method:"post",
       body: data,
-      headers: {"Authorization":"bearer "+this.state.token}
+      headers: {"Authorization":"Bearer "+this.state.token}
     })
     .then(function(res){
       return res.json()
@@ -148,6 +148,7 @@ export default class UpdateProduct extends React.PureComponent {
       }
     })
   }
+
   render() {
     const Container={
       display: "flex",
@@ -169,15 +170,11 @@ export default class UpdateProduct extends React.PureComponent {
       flexDirection: "column",
       paddingBottom: "20px",
       paddingTop: "60px",
+      justifyContent: "center"
     };
     const formContainer={
-      border: "1px solid black",
       width:"50%",
       margin: "0 auto",
-      position: "relative",
-      padding: "15px",
-      top: "50%",
-      transform: "translateY(-50%)",
     };
     const Title={
       marginBottom: "0",
@@ -218,6 +215,15 @@ export default class UpdateProduct extends React.PureComponent {
       width: "300px",
       padding: "15px",
       paddingTop: "0",
+    }
+    const formContainerMobile={
+      width:"90%",
+      maxWidth:"300px",
+      margin: "0 auto",
+      color: "white"
+    };
+    const categoryTitle={
+      marginBottom: "5px",
     }
     const styles = {
       customWidth: {
@@ -287,10 +293,11 @@ export default class UpdateProduct extends React.PureComponent {
       <div style={Container}>
         <Helmet title="updateProduct" meta={[ { name: 'description', content: 'Description of UpdateProduct' }]}/>
         <Header />
+        <Responsive minDeviceWidth={1024}>
         <main style={mainContainer}>
           <div style={main}>
             <div style={formContainer}>
-              <h2 style={h2title}>Update Product</h2>
+              <h2 style={h2title}>Create Product</h2>
               <p style={Title}>Product Name:</p>
               <TextField
               onChange={this.handleProduct}
@@ -304,10 +311,10 @@ export default class UpdateProduct extends React.PureComponent {
               />
               <br />
           <RaisedButton
-            backgroundColor="Black"
+            backgroundColor="rgb(58, 31, 0)"
+            labelColor="wheat"
             label="Choose an Image"
             labelPosition="before"
-            labelColor="red"
             style={styles.uploadButton}
             style={styles.button}
             containerElement="label"
@@ -317,18 +324,17 @@ export default class UpdateProduct extends React.PureComponent {
           <img style={preview} src={this.state.preview} />
           <br />
         <div style={categories}>
+        <h4 style={categoryTitle}>Categories:</h4>
         <SelectField
-          floatingLabelStyle={styles.floatlabel1}
           labelStyle={styles.label1}
-          floatingLabelText="Categories"
           value={this.state.categoryID}
           onChange={this.handleCategory}
           className="Categories"
+          style={styles.customWidth}
           >
           {this.state.categories.map((category, i) => (
             <MenuItem value={category.id} primaryText={category.category} key={i}/>
           ))}
-
         </SelectField>
         </div>
         <p style={Title}>Stock:</p>
@@ -366,11 +372,103 @@ export default class UpdateProduct extends React.PureComponent {
             underlineFocusStyle={styles.underlineFocusStyle}
           />
           <RaisedButton style={styles.button} type="submit"
-          backgroundColor="Black" labelColor="red !important" onTouchTap={this.updateProduct} label="Submit"
-          className="button-submit" primary={true} />
+          backgroundColor="rgb(58, 31, 0)"
+          labelColor="wheat"
+          onTouchTap={this.updateProduct}
+          label="Submit"
+          className="button-submit"  />
       </div>
+      </div>
+      </main>
+      </Responsive>
+      <Responsive maxDeviceWidth={1023}>
+      <main style={mainContainer}>
+        <div style={main}>
+          <div style={formContainerMobile}>
+            <h2 style={h2title}>Create Product</h2>
+            <p style={Title}>Product Name:</p>
+            <TextField
+            onChange={this.handleProduct}
+            value={this.state.product}
+            style={contentBox}
+            hintText="&nbsp;"
+            hintStyle={styles.hintStyle}
+            inputStyle={styles.inputStyle}
+            underlineStyle={styles.underlineStyle}
+            underlineFocusStyle={styles.underlineFocusStyle}
+            />
+            <br />
+        <RaisedButton
+          backgroundColor="rgb(58, 31, 0)"
+          labelColor="wheat"
+          label="Choose an Image"
+          labelPosition="before"
+          style={styles.uploadButton}
+          style={styles.button}
+          containerElement="label"
+          >
+        <input type="file" onChange={(e) => this.handleImage(e)}  style={styles.uploadInput} />
+        </RaisedButton>
+        <img style={preview} src={this.state.preview} />
+        <br />
+      <div style={categories}>
+      <h4 style={categoryTitle}>Categories:</h4>
+      <SelectField
+        labelStyle={styles.label1}
+        value={this.state.categoryID}
+        onChange={this.handleCategory}
+        className="Categories"
+        style={styles.customWidth}
+        >
+        {this.state.categories.map((category, i) => (
+          <MenuItem value={category.id} primaryText={category.category} key={i}/>
+        ))}
+      </SelectField>
+      </div>
+      <p style={Title}>Stock:</p>
+      <TextField
+      onChange={this.handleStock}
+      value={this.state.stock}
+      style={contentBox}
+      hintText="&nbsp;"
+      hintStyle={styles.hintStyle}
+      inputStyle={styles.inputStyle}
+      underlineStyle={styles.underlineStyle}
+      underlineFocusStyle={styles.underlineFocusStyle}
+      />
+      <br />
+      <p style={Title}>Price:</p>
+      <TextField
+      onChange={this.handlePrice}
+      value={this.state.price}
+      style={contentBox}
+      hintText="&nbsp;"
+      hintStyle={styles.hintStyle}
+      inputStyle={styles.inputStyle}
+      underlineStyle={styles.underlineStyle}
+      underlineFocusStyle={styles.underlineFocusStyle}
+      />
+      <br />
+      <p style={Title}>Description:</p>
+        <TextField style={descriptionBox}
+          onChange={this.handleDescription}
+          value={this.state.description}
+          multiLine={true}
+          rows={10}
+          textareaStyle={styles.textareaStyle}
+          underlineStyle={styles.underlineStyle}
+          underlineFocusStyle={styles.underlineFocusStyle}
+        />
+        <RaisedButton style={styles.button} type="submit"
+        backgroundColor="rgb(58, 31, 0)"
+        labelColor="wheat"
+        onTouchTap={this.updateProduct}
+        label="Submit"
+        className="button-submit"  />
     </div>
-  </main>
+    </div>
+    </main>
+    </Responsive>
   <Footer style={footerStyle} />
 </div>
     );
