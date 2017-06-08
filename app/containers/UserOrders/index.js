@@ -36,7 +36,9 @@ export default class UserOrders extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://127.0.0.1:8000/api/showUserOrders?token=" + this.state.token)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/showUserOrders?token=" + this.state.token,{
+      headers:{"Authorization":"Bearer "+this.state.token}
+    })
     .then(function(res){
       return res.json()
     })
@@ -46,7 +48,7 @@ export default class UserOrders extends React.PureComponent {
       })
     }.bind(this))
 
-    fetch("http://127.0.0.1:8000/api/getProducts")
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getProducts")
     .then(function(res){
       return res.json()
     })
@@ -75,7 +77,7 @@ export default class UserOrders extends React.PureComponent {
     data.append("amount", this.state.amount)
     data.append("comment", this.state.comment)
 
-    fetch("http://127.0.0.1:8000/api/updateOrder/"+this.state.activeOrder.id+"?token="+this.state.token,
+    fetch("http://sumorobot.codemonkeytestsites.com/api/updateOrder/"+this.state.activeOrder.id+"?token="+this.state.token,
   {
     method:"post",
     body:data,
@@ -100,7 +102,7 @@ export default class UserOrders extends React.PureComponent {
   }
   destroyOrder = () =>{
     var _this = this;
-    fetch("http://127.0.0.1:8000/api/destroyOrder/" + this.state.activeOrder.id + "?token=" + this.state.token, {
+    fetch("http://sumorobot.codemonkeytestsites.com/api/destroyOrder/" + this.state.activeOrder.id + "?token=" + this.state.token, {
       method: "post",
       headers:{"Authorization":"bearer "+this.state.token}
     })

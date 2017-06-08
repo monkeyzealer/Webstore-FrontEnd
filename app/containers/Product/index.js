@@ -45,7 +45,7 @@ export default class Product extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://127.0.0.1:8000/api/showProduct/" + this.props.params.id)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/showProduct/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -56,7 +56,7 @@ export default class Product extends React.PureComponent {
       })
     }.bind(this))
 
-    fetch("http://127.0.0.1:8000/api/getComments/" + this.props.params.id)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getComments/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -78,7 +78,7 @@ storeComment = () =>{
   data.append("commentBody", this.state.commentBody);
   data.append("productID", this.props.params.id);
 
-  fetch("http://127.0.0.1:8000/api/storeComment?token=" + this.state.token,
+  fetch("http://sumorobot.codemonkeytestsites.com/api/storeComment?token=" + this.state.token,
   {
     method:"post",
     body: data,
@@ -105,7 +105,7 @@ storeComment = () =>{
 }
 deleteComment = () =>{
   var _this = this;
-  fetch("http://127.0.0.1:8000/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
+  fetch("http://sumorobot.codemonkeytestsites.com/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
     method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
@@ -139,7 +139,7 @@ deleteComment = () =>{
 }
 destroyProduct = () =>{
   var _this = this;
-  fetch("http://127.0.0.1:8000/api/destroyProduct/" + this.props.params.id + "?token=" + this.state.token, {
+  fetch("http://sumorobot.codemonkeytestsites.com/api/destroyProduct/" + this.props.params.id + "?token=" + this.state.token, {
     method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
@@ -210,7 +210,7 @@ destroyProduct = () =>{
     data.append("amount", this.state.amount)
     data.append("comment", this.state.comment)
 
-    fetch("http://127.0.0.1:8000/api/storeOrder?token="+this.state.token,
+    fetch("http://sumorobot.codemonkeytestsites.com/api/storeOrder?token="+this.state.token,
   {
     method:"post",
     body:data,

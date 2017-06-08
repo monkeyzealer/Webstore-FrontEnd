@@ -44,7 +44,7 @@ export default class SignIn extends React.PureComponent {
       data.append("email", this.state.email);
       data.append("password", this.state.password);
 
-      fetch("http://127.0.0.1:8000/api/signIn", {
+      fetch("http://sumorobot.codemonkeytestsites.com/api/signIn", {
         method:"post",
         body: data
       })
@@ -57,7 +57,7 @@ export default class SignIn extends React.PureComponent {
         }
         else if (json.token) {
           sessionStorage.setItem("token", json.token);
-          fetch("http://127.0.0.1:8000/api/getUser?token="+json.token, {
+          fetch("http://sumorobot.codemonkeytestsites.com/api/getUser?token="+json.token, {
             headers:{"Authorization":"Bearer "+json.token}
           })
           .then(function(res){

@@ -39,7 +39,7 @@ export default class CreateCategory extends React.PureComponent {
     var data = new FormData();
     data.append("category", this.state.category);
 
-    fetch("http://127.0.0.1:8000/api/storeCategory?token="+this.state.token, {
+    fetch("http://sumorobot.codemonkeytestsites.com/api/storeCategory?token="+this.state.token, {
       method:"post",
       body: data,
       headers: {"Authorization":"bearer "+this.state.token}

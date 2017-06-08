@@ -19,7 +19,8 @@ class Footer extends React.PureComponent {
       fontSize: "20px",
       fontFamily: "Arial",
       height: "auto",
-      backgroundRepeat: "repeat"
+      backgroundRepeat: "repeat",
+      justifyContent: "center",
     }
     const footerInfo={
       width: "50%",

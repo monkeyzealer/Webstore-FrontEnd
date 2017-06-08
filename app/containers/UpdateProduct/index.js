@@ -38,7 +38,7 @@ export default class UpdateProduct extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://127.0.0.1:8000/api/showProduct/" + this.props.params.id)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/showProduct/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -55,7 +55,7 @@ export default class UpdateProduct extends React.PureComponent {
       })
     }.bind(this))
 
-    fetch("http://127.0.0.1:8000/api/getCategories?token="+this.state.token)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getCategories?token="+this.state.token)
     .then(function(res){
       return res.json()
     })
@@ -120,7 +120,7 @@ export default class UpdateProduct extends React.PureComponent {
     data.append("categoryID", this.state.categoryID);
     data.append("description", this.state.description);
 
-    fetch("http://127.0.0.1:8000/api/updateProduct/"+this.props.params.id+"?token="+this.state.token,
+    fetch("http://sumorobot.codemonkeytestsites.com/api/updateProduct/"+this.props.params.id+"?token="+this.state.token,
     {
       method:"post",
       body: data,

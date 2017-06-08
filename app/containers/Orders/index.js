@@ -37,7 +37,9 @@ export default class Orders extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://127.0.0.1:8000/api/getOrders?token=" + this.state.token)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getOrders?token=" + this.state.token,{
+      headers:{"Authorization":"Bearer "+this.state.token}
+    })
     .then(function(res){
       return res.json()
     })
@@ -47,7 +49,7 @@ export default class Orders extends React.PureComponent {
       })
     }.bind(this))
 
-    fetch("http://127.0.0.1:8000/api/getProducts")
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getProducts")
     .then(function(res){
       return res.json()
     })
@@ -57,7 +59,7 @@ export default class Orders extends React.PureComponent {
       })
     }.bind(this))
 
-    fetch("http://127.0.0.1:8000/api/showOrder/" + this.props.params.id)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/showOrder/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -87,11 +89,11 @@ export default class Orders extends React.PureComponent {
     data.append("amount", this.state.amount)
     data.append("comment", this.state.comment)
 
-    fetch("http://127.0.0.1:8000/api/updateOrder/"+this.state.activeOrder.id+"?token="+this.state.token,
+    fetch("http://sumorobot.codemonkeytestsites.com/api/updateOrder/"+this.state.activeOrder.id+"?token="+this.state.token,
   {
     method:"post",
     body:data,
-    headers:{"Authorization":"bearer"+this.state.token}
+    headers:{"Authorization":"bearer "+this.state.token}
   })
   .then(function(res){
     return res.json()
@@ -112,7 +114,7 @@ export default class Orders extends React.PureComponent {
   }
   destroyOrder = () =>{
     var _this = this;
-    fetch("http://127.0.0.1:8000/api/destroyOrder/" + this.state.activeOrder.id + "?token=" + this.state.token, {
+    fetch("http://sumorobot.codemonkeytestsites.com/api/destroyOrder/" + this.state.activeOrder.id + "?token=" + this.state.token, {
       method: "post",
       headers:{"Authorization":"bearer "+this.state.token}
     })

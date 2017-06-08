@@ -38,7 +38,7 @@ export default class Store extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://127.0.0.1:8000/api/getProducts")
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getProducts")
     .then(function(res){
       return res.json()
     })
@@ -48,7 +48,7 @@ export default class Store extends React.PureComponent {
         filterProducts:json
       })
     }.bind(this))
-    fetch("http://127.0.0.1:8000/api/getCategories?token="+this.state.token)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getCategories?token="+this.state.token)
     .then(function(res){
       return res.json()
     })
@@ -221,12 +221,14 @@ return(
       marginBottom: "5px"
     };
     const productImage={
-      width: "100%",
+      width: "80%",
       height: "250px",
+      maxWidth:"300px",
       background: "rgba(255, 255, 255, 0.3)",
       position: "relative",
       padding: "0",
       borderRadius: "0",
+      border: "1px solid lightgray",
     }
     const flexGrid ={
       margin: "0 auto",
@@ -264,6 +266,11 @@ return(
       border: "0",
       height: "auto",
       maxWidth: "100%",
+      textAlign: "center",
+      paddingTop: "25px",
+      paddingBottom: "25px",
+      borderBottom: "1px solid black",
+      background: "rgb(98, 98, 98)"
     };
     const Productbox={
         backgroundColor: "#BdBEC0",

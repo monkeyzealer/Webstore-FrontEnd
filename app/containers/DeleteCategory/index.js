@@ -33,7 +33,7 @@ export default class DeleteCategory extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://127.0.0.1:8000/api/getCategories?token="+this.state.token)
+    fetch("http://sumorobot.codemonkeytestsites.com/api/getCategories?token="+this.state.token)
     .then(function(res){
       return res.json()
     })
@@ -47,7 +47,7 @@ handleCategory = (event, index, value) => this.setState({categoryID:value});
 
 destroyCategory = () =>{
   var _this = this;
-  fetch("http://127.0.0.1:8000/api/destroyCategory/" + this.state.categoryID + "?token=" + this.state.token, {
+  fetch("http://sumorobot.codemonkeytestsites.com/api/destroyCategory/" + this.state.categoryID + "?token=" + this.state.token, {
     method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
