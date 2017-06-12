@@ -103,9 +103,9 @@ storeComment = () =>{
     }
   }.bind(this))
 }
-deleteComment = () =>{
+deleteComment = (id) =>{
   var _this = this;
-  fetch("http://sumorobot.codemonkeytestsites.com/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
+  fetch("http://sumorobot.codemonkeytestsites.com/api/deleteComment/" + id + "?token=" + this.state.token, {
     method: "post",
     headers:{"Authorization":"bearer "+this.state.token}
   })
@@ -116,7 +116,7 @@ deleteComment = () =>{
     if(json.success)
     {
       alert(json.success);
-      _this.context.router.push("/store");
+      window.location.reload();
     }
     else if(json.error)
     {
@@ -150,7 +150,7 @@ destroyProduct = () =>{
     if(json.success)
     {
       alert(json.success);
-      _this.context.router.push("/store");
+      window.location.reload();
     }
     else if(json.error)
     {
@@ -353,8 +353,8 @@ destroyProduct = () =>{
       marginBottom: "0",
       marginTop: "0",
       width: "90%",
-      height: "255px",
-      maxHeight:"255px"
+      height:"274px",
+      maxHeight:"274px"
     };
     const commentBox={
       width: "100%",
@@ -535,7 +535,7 @@ destroyProduct = () =>{
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
               <div style={userComment} key={i}>
-              <p style={deleteComment}><button style={{border:'1px solid white'}} onTouchTap={this.deleteComment}>X</button></p>
+              <p style={deleteComment}><button style={{border:'1px solid white'}} onTouchTap={() => this.deleteComment(comment.id)}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>
@@ -576,7 +576,7 @@ destroyProduct = () =>{
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
               <div style={userComment} key={i}>
-              <p style={deleteComment}><button style={{border:'1px solid white'}} onTouchTap={this.deleteComment}>X</button></p>
+              <p style={deleteComment}><button style={{border:'1px solid white'}} onTouchTap={() => this.deleteComment(comment.id)}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>
