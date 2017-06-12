@@ -21,6 +21,7 @@ import ActionAndroid from 'material-ui/svg-icons/action/android';
 import RaisedButton from 'material-ui/RaisedButton';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 
+
 export default class Orders extends React.PureComponent {
   constructor(props){
     super(props);
@@ -112,9 +113,9 @@ export default class Orders extends React.PureComponent {
     }
   })
   }
-  destroyOrder = () =>{
+  destroyOrder = (id) =>{
     var _this = this;
-    fetch("http://sumorobot.codemonkeytestsites.com/api/destroyOrder/" + this.state.activeOrder.id + "?token=" + this.state.token, {
+    fetch("http://sumorobot.codemonkeytestsites.com/api/destroyOrder/" + id + "?token=" + this.state.token, {
       method: "post",
       headers:{"Authorization":"bearer "+this.state.token}
     })
@@ -387,7 +388,9 @@ const del={
               </Dialog>
               </div>
               </div>
-              <p style={del}><RaisedButton label="Delete Order" buttonStyle={styles.button} labelStyle={styles.label1} style={{display: 'flex', alignSelf: 'center', margin: '0 auto'}} onTouchTap={this.destroyProduct}/></p>
+              <p style={del}><RaisedButton label="Delete Order" buttonStyle={styles.button}
+              labelStyle={styles.label1} style={{display: 'flex', alignSelf: 'center', margin: '0 auto'}}
+              onTouchTap={()=>this.destroyOrder(order.id)}/></p>
               </div>
             </div>
           </div>
@@ -437,7 +440,9 @@ const del={
           </Dialog>
           </div>
           </div>
-          <p style={del}><RaisedButton label="Delete Order" buttonStyle={styles.button} labelStyle={styles.label1} style={{display: 'flex', alignSelf: 'center', margin: '0 auto'}} onTouchTap={this.destroyProduct}/></p>
+          <p style={del}><RaisedButton label="Delete Order" buttonStyle={styles.button}
+          labelStyle={styles.label1} style={{display: 'flex', alignSelf: 'center', margin: '0 auto'}}
+          onTouchTap={()=>this.destroyOrder(order.id)}/></p>
           </div>
         </div>
       </div>

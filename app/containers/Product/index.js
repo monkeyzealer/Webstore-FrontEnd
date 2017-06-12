@@ -150,7 +150,7 @@ destroyProduct = () =>{
     if(json.success)
     {
       alert(json.success);
-      window.location.reload();
+      _this.context.router.push("/store");
     }
     else if(json.error)
     {
